@@ -1,5 +1,9 @@
 const button = document.querySelector("#getQuoteBtn")
 const resultsEl = document.querySelector("#results")
+const copyBtn = document.querySelector("#copyBtn")
+let currentQuote = ""
+
+
 
 button.addEventListener("click", () => {
   getQuote()
@@ -16,10 +20,15 @@ async function getQuote() {
 }
 
 function renderQuote(data) {
-  resultsEl.innerHTML = `
-    <div class="card">
-      <p>"${data.quote}"</p>
-      <p class="small">– Kanye West</p>
-    </div>
-  `
+  currentQuote = data.quote
+resultsEl.innerHTML = `<p>"${currentQuote}"</p>`
+copyBtn.disabled = false
+
 }
+copyBtn.addEventListener("click", () => {
+  navigator.clipboard.writeText(currentQuote)
+  copyBtn.textContent = "Copied!"
+  setTimeout(() => {
+    copyBtn.textContent = "Copy quote"
+  }, 1200)
+})
