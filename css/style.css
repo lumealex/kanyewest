@@ -9,6 +9,11 @@ body {
   
 }
 
+p {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 64px;
+}
 h1 {
   margin-bottom: 20px;
   text-align: center;
@@ -27,11 +32,20 @@ button {
   font-size: 16px;
   cursor: pointer;
   margin-right: 10px;
-  margin-top: 100px;
-  display: flex;
+ 
+ 
   align-items: center;
 }
 
+#copyBtn {
+   padding: 10px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  
+ 
+  align-items: center;
+}
 .card {
   background: white;
   padding: 20px;
@@ -43,3 +57,72 @@ button {
   color: #666;
   font-size: 14px;
 }
+
+
+.controls{
+  display: flex;
+  justify-content: center; /* keskele */
+  gap: 12px;               /* vahe nuppude vahel */
+  margin-top: 700px;
+  position: absolute;
+}
+.quote-stage {
+  position: relative; /* et nupud saaksid pildi peal positsioneerida */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 800px; /* sinu pildi max-width */
+  margin:  auto;
+}
+.person {
+  width: 800px;           /* võtab kogu konteineri laiuse */
+  display: block;
+  margin: auto;
+  margin-right: 50px;        /* keskele */
+}
+.paper-quote {
+  position: absolute;
+  top: 50%;            /* keskele vertikaalselt */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;          /* laiust saab reguleerida */
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  z-index: 5;           /* tagaplaanile nupu suhtes */
+}
+
+
+.quote-stage {
+  position: relative;
+  width: 800px;          /* pildi maksimaalne laius */
+  margin: 0 auto;        /* horisontaalne keskele */
+}
+.paper-quote {
+  position: absolute;
+  top: 45%;               /* reguleeri kõrgust paberi jaoks */
+  left: 48%;
+  transform: translateX(-50%);
+  width: 40%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #111;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.6);
+}
+
+.like-dislike-buttons {
+  position: absolute;
+  top: 400px;             /* üleval pildi kohal */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+#likeBtn.liked { background-color: #4caf50; color: white; }
+#dislikeBtn.disliked { background-color: #f44336; color: white; }
+

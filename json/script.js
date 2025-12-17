@@ -1,34 +1,95 @@
-const button = document.querySelector("#getQuoteBtn")
-const resultsEl = document.querySelector("#results")
-const copyBtn = document.querySelector("#copyBtn")
-let currentQuote = ""
+document.addEventListener("DOMContentLoaded", () => {
+  // DOM elemendid
+  const button = document.querySelector("#getQuoteBtn");
+  const copyBtn = document.querySelector("#copyBtn");
+  const likeBtn = document.querySelector("#likeBtn");
+  const dislikeBtn = document.querySelector("#dislikeBtn");
+  const quoteTextEl = document.querySelector("#quoteText");
 
+  // Praegune tsitaat ja state
+  let currentQuote = "";
+  let liked = false;
+  let disliked = false;
 
+  // Library tsitaatide jaoks
+  let likedQuotes = [];
+  let dislikedQuotes = [];
 
-button.addEventListener("click", () => {
-  getQuote()
-})
+  // GET quote nupp
+  button.addEventListener("click", async () => {
+    try {
+      const response = await fetch("https://api.kanye.rest");
+      const data = await response.json();
+      renderQuote(data.quote);
+    } catch (err) {
+      console.error("Quote fetch error:", err);
+    }
+  });
 
-async function getQuote() {
-  const response = await fetch("https://api.kanye.rest")
-  console.log("Response status:", response.status)
+  // Render quote ja reset nuppude state
+  function renderQuote(quote) {
+    currentQuote = quote;
+    quoteTextEl.textContent = quote;
 
-  const data = await response.json()
-  console.log("Raw data:", data)
+    copyBtn.disabled = false;
 
-  renderQuote(data)
-}
+    // Reset like/dislike nuppude visuaal
+    liked = false;
+    disliked = false;
+    likeBtn.classList.remove("liked");
+    dislikeBtn.classList.remove("disliked");
+  }
 
-function renderQuote(data) {
-  currentQuote = data.quote
-resultsEl.innerHTML = `<p>"${currentQuote}"</p>`
-copyBtn.disabled = false
+  // Copy nupp
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(currentQuote);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy quote";
+    }, 1200);
+  });
 
-}
-copyBtn.addEventListener("click", () => {
-  navigator.clipboard.writeText(currentQuote)
-  copyBtn.textContent = "Copied!"
-  setTimeout(() => {
-    copyBtn.textContent = "Copy quote"
-  }, 1200)
-})
+  // Like nupp
+  likeBtn.addEventListener("click", () => {
+    if (!liked) {
+      liked = true;
+      disliked = false;
+      likeBtn.classList.add("liked");
+      dislikeBtn.classList.remove("disliked");
+
+      if (!likedQuotes.includes(currentQuote)) likedQuotes.push(currentQuote);
+      dislikedQuotes = dislikedQuotes.filter(q => q !== currentQuote);
+    } else {
+      liked = false;
+      likeBtn.classList.remove("liked");
+      likedQuotes = likedQuotes.filter(q => q !== currentQuote);
+    }
+
+    logLibrary();
+  });
+
+  // Dislike nupp
+  dislikeBtn.addEventListener("click", () => {
+    if (!disliked) {
+      disliked = true;
+      liked = false;
+      dislikeBtn.classList.add("disliked");
+      likeBtn.classList.remove("liked");
+
+      if (!dislikedQuotes.includes(currentQuote)) dislikedQuotes.push(currentQuote);
+      likedQuotes = likedQuotes.filter(q => q !== currentQuote);
+    } else {
+      disliked = false;
+      dislikeBtn.classList.remove("disliked");
+      dislikedQuotes = dislikedQuotes.filter(q => q !== currentQuote);
+    }
+
+    logLibrary();
+  });
+
+  // Library logimine
+  function logLibrary() {
+    console.log("Liked Quotes:", likedQuotes);
+    console.log("Disliked Quotes:", dislikedQuotes);
+  }
+});

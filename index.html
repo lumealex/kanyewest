@@ -7,16 +7,36 @@
 </head>
 <body>
 
-  <h1>Random Kanye West Quote</h1>
+  <h1>Rändom Kanye West Quote</h1>
+ 
+<div class="quote-stage">
+  <img src="img/kanye.png" class="person" alt="Kanye">
+  
+  <!-- Like/Dislike nupud pildi peal -->
+  <div class="like-dislike-buttons">
+    <button id="likeBtn">👍 Like</button>
+    <button id="dislikeBtn">👎 Dislike</button>
+  </div>
 
-  <button id="getQuoteBtn">Get random quote</button>
+  <!-- Quote pildi peal -->
+  <div class="paper-quote">
+    <p id="quoteText">...</p>
+  </div>
 
-  <div id="results"></div>
+  <!-- Copy/Get Quote nupud pildi all -->
+  <div class="controls">
+    <button id="getQuoteBtn">Spit quotes man</button>
+    <button id="copyBtn" disabled>Copy that fire ass quote</button>
+  </div>
+</div>
 
-  <button id="copyBtn" disabled>
-  Copy quote</button>
+
+
 
 
   <script src="json/script.js"></script>
+  <footer>
+    <p>Made by Alex</p>
+  </footer>
 </body>
 </html>
