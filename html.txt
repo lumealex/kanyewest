@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanye Quote Game - Windows 95</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="desktop-bg"></div>
+
+  <div class="window">
+    <div class="title-bar">
+      <div class="title-bar-text">Kanye Quote Game.exe</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close">✕</button>
+      </div>
+    </div>
+
+    <!-- Made menu items clickable -->
+    <div class="menu-bar">
+      <span class="menu-item" onclick="showPage('file')">Music</span>
+      <span class="menu-item" onclick="showPage('edit')">Edit</span>
+      <span class="menu-item" onclick="showPage('view')">Pictures</span>
+      <span class="menu-item" onclick="showPage('help')">About Kanye</span>
+    </div>
+
+    <div class="window-body">
+      <!-- Main game page -->
+      <div id="gamePage" class="page-content">
+        <div class="content">
+          <h1 class="retro-title">KANYE WEST QUOTE GAME</h1>
+          <p class="subtitle">Is this a real Kanye quote?</p>
+
+          <div class="quote-box">
+            <div class="quote-display">
+              <p id="quoteText">Press START to begin the game...</p>
+            </div>
+          </div>
+
+          <!-- Start button changes to next quote during game -->
+          <div class="game-controls">
+            <button id="startBtn" class="btn-retro btn-primary">START GAME</button>
+          </div>
+
+          <div id="answerButtons" class="answer-buttons" style="display: none;">
+            <button id="trueBtn" class="btn-retro btn-true">✓ REAL</button>
+            <button id="falseBtn" class="btn-retro btn-false">✗ FAKE</button>
+          </div>
+
+          <div class="status-bar">
+            <div class="status-field">
+              <span class="label">Score:</span>
+              <span id="score" class="value">0</span>
+            </div>
+            <div class="status-field">
+              <span class="label">Streak:</span>
+              <span id="streak" class="value">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- File page - Kanye West songs -->
+      <div id="filePage" class="page-content" style="display: none;">
+        <div class="content">
+          <h2 class="page-title">🎵 Kanye West Music</h2>
+          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          
+          <div class="list-box">
+            <div class="list-item" onclick="playTrack('stronger')">♫ Stronger (2007)</div>
+            <div class="list-item" onclick="playTrack('gold-digger')">♫ Gold Digger (2005)</div>
+            <div class="list-item" onclick="playTrack('heartless')">♫ Heartless (2008)</div>
+            <div class="list-item" onclick="playTrack('power')">♫ Power (2010)</div>
+            <div class="list-item" onclick="playTrack('runaway')">♫ Runaway (2010)</div>
+            <div class="list-item" onclick="playTrack('all-of-the-lights')">♫ All of the Lights (2010)</div>
+            <div class="list-item" onclick="playTrack('paris')">♫ Ni**as in Paris (2011)</div>
+            <div class="list-item" onclick="playTrack('black-skinhead')">♫ Black Skinhead (2013)</div>
+            <div class="list-item" onclick="playTrack('bound-2')">♫ Bound 2 (2013)</div>
+            <div class="list-item" onclick="playTrack('famous')">♫ Famous (2016)</div>
+            <div class="list-item" onclick="playTrack('ultralight')">♫ Ultralight Beam (2016)</div>
+            <div class="list-item" onclick="playTrack('ghost-town')">♫ Ghost Town (2018)</div>
+          </div>
+          
+          <!-- Added audio player -->
+          <div class="audio-player" id="audioPlayer" style="display: none;">
+            <p id="nowPlaying">Now Playing: <span id="trackName"></span></p>
+            <audio id="audioElement" controls style="width: 100%; margin-top: 10px;"></audio>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit page - placeholder -->
+      <div id="editPage" class="page-content" style="display: none;">
+        <div class="content">
+          <h2 class="page-title">✏️ Edit Settings</h2>
+          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          <div class="info-box">
+            <p>Game settings coming soon...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- View page - Random Kanye pictures -->
+      <div id="viewPage" class="page-content" style="display: none;">
+        <div class="content">
+          <h2 class="page-title">🖼️ Kanye Pictures</h2>
+          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          
+          <!-- Added file input for uploading images -->
+          <div class="upload-section">
+            <label class="btn-retro btn-primary" for="imageUpload">
+              📁 Upload Kanye Pictures
+            </label>
+            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(event)">
+          </div>
+          
+          <div class="gallery-grid" id="galleryGrid">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
+          </div>
+        </div>
+      </div>
+
+      <!-- Help page - About Kanye West -->
+      <div id="helpPage" class="page-content" style="display: none;">
+        <div class="content">
+          <h2 class="page-title">ℹ️ About Kanye West</h2>
+          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          
+          <div class="info-box">
+            <h3>Kanye Omari West</h3>
+            <p><strong>Born:</strong> June 8, 1977 (Atlanta, Georgia)</p>
+            <p><strong>Also known as:</strong> Ye</p>
+            <p><strong>Occupation:</strong> Rapper, Producer, Fashion Designer</p>
+            <p><strong>Notable Albums:</strong></p>
+            <ul>
+              <li>The College Dropout (2004)</li>
+              <li>Late Registration (2005)</li>
+              <li>Graduation (2007)</li>
+              <li>808s & Heartbreak (2008)</li>
+              <li>My Beautiful Dark Twisted Fantasy (2010)</li>
+              <li>Yeezus (2013)</li>
+              <li>The Life of Pablo (2016)</li>
+            </ul>
+            <p><strong>Awards:</strong> 24 Grammy Awards</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Milestone overlay unchanged -->
+  <div id="milestoneOverlay" class="milestone-overlay">
+    <div class="milestone-content">
+      <h2 id="milestoneText"></h2>
+      <img id="milestoneGif" src="/placeholder.svg" alt="Celebration" />
+    </div>
+  </div>
+
+  <script src="json/script.js"></script>
+</body>
+</html>

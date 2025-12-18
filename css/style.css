@@ -1,128 +1,475 @@
+/* Retro Windows 95 styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  padding: 40px;
+  font-family: "MS Sans Serif", "Microsoft Sans Serif", sans-serif;
+  background: #008080;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  
-}
-
-p {
-  font-size: 18px;
-  text-align: center;
-  margin-top: 64px;
-}
-h1 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-button {
-  padding: 10px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 10px;
-  
-}
-
-#getQuoteBtn {
-   padding: 10px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 10px;
- 
- 
-  align-items: center;
-}
-
-#copyBtn {
-   padding: 10px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 10px;
-  
- 
-  align-items: center;
-}
-.card {
-  background: white;
   padding: 20px;
-  margin-top: 20px;
-  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  cursor: url("../img/cursor.png"), url("../img/cursor.cur"), pointer;
 }
 
-.small {
-  color: #666;
+.desktop-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #008080;
+  z-index: -1;
+}
+
+/* Windows 95 Window */
+.window {
+  max-width: 700px;
+  width: 100%;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Title Bar */
+.title-bar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  padding: 3px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-bar-text {
+  color: white;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.title-bar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.title-bar-controls button {
+  width: 16px;
+  height: 14px;
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  font-size: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-bar-controls button:active {
+  border-color: #000000 #ffffff #ffffff #000000;
+}
+
+/* Menu Bar */
+.menu-bar {
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  padding: 2px 5px;
+  display: flex;
+  gap: 10px;
+}
+
+.menu-item {
+  font-size: 11px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #000080;
+  color: white;
+}
+
+/* Window Body */
+.window-body {
+  background: #c0c0c0;
+  padding: 15px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.retro-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000080;
+  text-shadow: 2px 2px #808080;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: #000000;
+}
+
+/* Added styles for new pages */
+
+.page-content {
+  display: none;
+}
+
+.page-content.active {
+  display: block;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000080;
+  text-shadow: 1px 1px #808080;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.btn-back {
+  margin-bottom: 15px;
+}
+
+/* List Box for songs */
+.list-box {
+  background: white;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 10px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.list-item {
+  padding: 8px 12px;
+  font-size: 12px;
+  border-bottom: 1px solid #c0c0c0;
+  cursor: pointer;
+}
+
+.list-item:hover {
+  background: #000080;
+  color: white;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* Info Box for help/about */
+.info-box {
+  background: white;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 20px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.info-box h3 {
+  color: #000080;
+  margin-bottom: 10px;
   font-size: 14px;
 }
 
-
-.controls{
-  display: flex;
-  justify-content: center; /* keskele */
-  gap: 12px;               /* vahe nuppude vahel */
-  margin-top: 700px;
-  position: absolute;
+.info-box p {
+  margin-bottom: 8px;
 }
-.quote-stage {
-  position: relative; /* et nupud saaksid pildi peal positsioneerida */
+
+.info-box ul {
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.info-box li {
+  margin-bottom: 4px;
+}
+
+/* Gallery Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border: 2px solid #000000;
+  cursor: pointer;
+}
+
+.gallery-img:hover {
+  border-color: #000080;
+}
+
+/* Quote Box */
+.quote-box {
+  background: white;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 2px;
+}
+
+.quote-display {
+  background: white;
+  padding: 20px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#quoteText {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000000;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Buttons */
+.game-controls {
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 800px; /* sinu pildi max-width */
-  margin:  auto;
-}
-.person {
-  width: 800px;           /* võtab kogu konteineri laiuse */
-  display: block;
-  margin: auto;
-  margin-right: 50px;        /* keskele */
-}
-.paper-quote {
-  position: absolute;
-  top: 50%;            /* keskele vertikaalselt */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;          /* laiust saab reguleerida */
-  text-align: center;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.4;
-  z-index: 5;           /* tagaplaanile nupu suhtes */
+  margin: 10px 0;
 }
 
-
-.quote-stage {
-  position: relative;
-  width: 800px;          /* pildi maksimaalne laius */
-  margin: 0 auto;        /* horisontaalne keskele */
-}
-.paper-quote {
-  position: absolute;
-  top: 45%;               /* reguleeri kõrgust paberi jaoks */
-  left: 48%;
-  transform: translateX(-50%);
-  width: 40%;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #111;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.6);
-}
-
-.like-dislike-buttons {
-  position: absolute;
-  top: 400px;             /* üleval pildi kohal */
-  left: 50%;
-  transform: translateX(-50%);
+.answer-buttons {
   display: flex;
-  gap: 12px;
-  z-index: 10;
+  gap: 15px;
+  justify-content: center;
+  margin: 10px 0;
 }
 
-#likeBtn.liked { background-color: #4caf50; color: white; }
-#dislikeBtn.disliked { background-color: #f44336; color: white; }
+.btn-retro {
+  padding: 8px 20px;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "MS Sans Serif", sans-serif;
+  border: 2px solid;
+  cursor: pointer;
+  background: #c0c0c0;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: 1px 1px 0 #808080;
+  text-transform: uppercase;
+}
 
+.btn-retro:hover {
+  background: #d4d4d4;
+}
+
+.btn-retro:active {
+  border-color: #000000 #ffffff #ffffff #000000;
+  box-shadow: none;
+  transform: translate(1px, 1px);
+}
+
+.btn-retro:disabled {
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  min-width: 120px;
+}
+
+.btn-true,
+.btn-false {
+  flex: 1;
+  max-width: 150px;
+}
+
+/* Status Bar */
+.status-bar {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.status-field {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: white;
+  border: 1px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 2px 8px;
+  flex: 1;
+}
+
+.status-field .label {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.status-field .value {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000080;
+}
+
+/* Milestone Overlay */
+.milestone-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.milestone-overlay.show {
+  display: flex;
+}
+
+.milestone-content {
+  text-align: center;
+  background: #c0c0c0;
+  border: 4px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  padding: 30px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.milestone-content h2 {
+  font-size: 28px;
+  color: #000080;
+  text-shadow: 2px 2px #808080;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.milestone-content img {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border: 2px solid #000000;
+}
+
+/* Audio Player Styles */
+.audio-player {
+  background: white;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.audio-player p {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#trackName {
+  color: #000080;
+}
+
+/* Upload Section Styles */
+.upload-section {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.upload-section label {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Flash feedback */
+.correct-flash .quote-box {
+  animation: correctFlash 0.5s ease;
+}
+
+.wrong-flash .quote-box {
+  animation: wrongFlash 0.5s ease;
+}
+
+@keyframes correctFlash {
+  0%,
+  100% {
+    background: white;
+  }
+  50% {
+    background: #90ee90;
+  }
+}
+
+@keyframes wrongFlash {
+  0%,
+  100% {
+    background: white;
+  }
+  50% {
+    background: #ffb3b3;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .retro-title {
+    font-size: 18px;
+  }
+
+  .window {
+    margin: 10px;
+  }
+
+  .milestone-content h2 {
+    font-size: 20px;
+  }
+
+  .milestone-content img {
+    max-width: 200px;
+  }
+}
