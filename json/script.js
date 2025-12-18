@@ -107,6 +107,11 @@ function handleAnswer(userSaysTrue) {
   const correct = (userSaysTrue && isRealQuote) || (!userSaysTrue && !isRealQuote)
 
   if (correct) {
+    const srFeedback = document.getElementById("srFeedback")
+if (srFeedback) {
+  srFeedback.textContent = "Correct answer."
+}
+
     score++
     streak++
     showFeedback(true)
@@ -119,6 +124,7 @@ function handleAnswer(userSaysTrue) {
     trueBtn.disabled = true
     falseBtn.disabled = true
     gameActive = false
+    
 
     // Show feedback text briefly
     setTimeout(() => {
@@ -131,6 +137,13 @@ function handleAnswer(userSaysTrue) {
       fetchNewQuote()
     }, 2500)
   } else {
+    const srFeedback = document.getElementById("srFeedback")
+if (srFeedback) {
+  srFeedback.textContent = isRealQuote
+    ? "Wrong answer. It was a real Kanye quote."
+    : "Wrong answer. It was a fake quote."
+}
+
     streak = 0
     score = 0
     showFeedback(false)
