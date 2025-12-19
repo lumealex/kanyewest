@@ -53,8 +53,8 @@ body {
 .title-bar {
   background: linear-gradient(to right, #000080, #1084d0);
   padding: 3px 5px;
+  /* Removed flex justify-content: space-between since controls are gone */
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -65,27 +65,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-.title-bar-controls {
-  display: flex;
-  gap: 2px;
-}
-
-.title-bar-controls button {
-  width: 16px;
-  height: 14px;
-  background: #c0c0c0;
-  border: 1px solid;
-  border-color: #ffffff #000000 #000000 #ffffff;
-  font-size: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.title-bar-controls button:active {
-  border-color: #000000 #ffffff #ffffff #000000;
-}
+/* Removed .title-bar-controls styles since buttons are removed */
 
 /* Menu Bar */
 .menu-bar {
