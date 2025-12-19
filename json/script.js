@@ -37,6 +37,7 @@ const gameCard = document.querySelector(".window-body")
 const milestoneOverlay = document.getElementById("milestoneOverlay")
 const milestoneText = document.getElementById("milestoneText")
 const milestoneGif = document.getElementById("milestoneGif")
+const srFeedback = document.getElementById("srFeedback")
 
 startBtn.addEventListener("click", startGame)
 trueBtn.addEventListener("click", () => handleAnswer(true))
@@ -56,17 +57,25 @@ function showPage(pageName) {
     document.getElementById(page).style.display = "none"
   })
 
+  let pageTitle = ""
   if (pageName === "game") {
     document.getElementById("gamePage").style.display = "block"
+    pageTitle = "Game page"
   } else if (pageName === "file") {
     document.getElementById("filePage").style.display = "block"
+    pageTitle = "Music page"
   } else if (pageName === "edit") {
     document.getElementById("editPage").style.display = "block"
+    pageTitle = "Edit settings page"
   } else if (pageName === "view") {
     document.getElementById("viewPage").style.display = "block"
+    pageTitle = "Pictures page"
   } else if (pageName === "help") {
     document.getElementById("helpPage").style.display = "block"
+    pageTitle = "About Kanye West page"
   }
+
+  announceToScreenReader(`Navigated to ${pageTitle}`)
 }
 
 function refreshGallery() {
@@ -94,8 +103,10 @@ async function fetchNewQuote() {
     }
 
     quoteText.textContent = `"${currentQuote}"`
+    announceToScreenReader(`New quote: ${currentQuote}. Is this a real Kanye quote?`)
   } catch (error) {
     quoteText.textContent = "Error loading quote..."
+    announceToScreenReader("Error loading quote. Please try again.")
     console.error("Error fetching quote:", error)
     gameActive = false
   }
@@ -107,10 +118,7 @@ function handleAnswer(userSaysTrue) {
   const correct = (userSaysTrue && isRealQuote) || (!userSaysTrue && !isRealQuote)
 
   if (correct) {
-    const srFeedback = document.getElementById("srFeedback")
-if (srFeedback) {
-  srFeedback.textContent = "Correct answer."
-}
+    announceToScreenReader(`Correct answer! Score: ${score + 1}, Streak: ${streak + 1}`)
 
     score++
     streak++
@@ -124,7 +132,6 @@ if (srFeedback) {
     trueBtn.disabled = true
     falseBtn.disabled = true
     gameActive = false
-    
 
     // Show feedback text briefly
     setTimeout(() => {
@@ -137,12 +144,11 @@ if (srFeedback) {
       fetchNewQuote()
     }, 2500)
   } else {
-    const srFeedback = document.getElementById("srFeedback")
-if (srFeedback) {
-  srFeedback.textContent = isRealQuote
-    ? "Wrong answer. It was a real Kanye quote."
-    : "Wrong answer. It was a fake quote."
-}
+    const explanation = isRealQuote
+      ? `Wrong answer. It was a real Kanye quote: ${currentQuote}`
+      : `Wrong answer. It was a fake quote: ${currentQuote}`
+
+    announceToScreenReader(`${explanation}. Game over. Score reset to 0.`)
 
     streak = 0
     score = 0
@@ -198,6 +204,10 @@ function showCelebrationGif(currentScore) {
   milestoneGif.src = randomGif
   milestoneOverlay.classList.add("show")
 
+  if ([2, 5, 10, 15, 20].includes(currentScore)) {
+    announceToScreenReader(`Milestone achieved: ${message}`)
+  }
+
   setTimeout(() => {
     milestoneOverlay.classList.remove("show")
   }, 2000)
@@ -243,6 +253,8 @@ function playTrack(trackName) {
   trackNameDisplay.textContent = trackDisplayNames[trackName]
   audioElement.src = trackPaths[trackName]
   audioElement.play()
+
+  announceToScreenReader(`Now playing: ${trackDisplayNames[trackName]}`)
 }
 
 function handleImageUpload(event) {
@@ -264,6 +276,17 @@ function handleImageUpload(event) {
     }
     reader.readAsDataURL(file)
   })
+}
+
+function announceToScreenReader(message) {
+  const srFeedback = document.getElementById("srFeedback")
+  if (srFeedback) {
+    srFeedback.textContent = message
+    // Clear after a moment so it can be reused
+    setTimeout(() => {
+      srFeedback.textContent = ""
+    }, 1000)
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

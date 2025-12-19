@@ -18,6 +18,17 @@ body {
   cursor: url("../img/cursor.png"), url("../img/cursor.cur"), pointer;
 }
 
+/* Added screen reader only class for accessibility */
+.sr-only {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 .desktop-bg {
   position: fixed;
   top: 0;
@@ -85,10 +96,15 @@ body {
   gap: 10px;
 }
 
+/* Made menu items proper buttons for accessibility */
 .menu-item {
   font-size: 11px;
   padding: 2px 8px;
   cursor: pointer;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-family: inherit;
 }
 
 .menu-item:hover {
@@ -156,11 +172,18 @@ body {
   overflow-y: auto;
 }
 
+/* Made list items proper buttons for accessibility */
 .list-item {
   padding: 8px 12px;
   font-size: 12px;
   border-bottom: 1px solid #c0c0c0;
   cursor: pointer;
+  background: white;
+  border: none;
+  border-bottom: 1px solid #c0c0c0;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
 }
 
 .list-item:hover {

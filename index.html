@@ -7,100 +7,108 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Added screen reader live region for announcements -->
   <div
-  id="srFeedback"
-  aria-live="assertive"
-  aria-atomic="true"
-  style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;"
+    id="srFeedback"
+    role="status"
+    aria-live="assertive"
+    aria-atomic="true"
+    class="sr-only"
   ></div>
-  
-  <div class="desktop-bg"></div>
-  
 
-  <div class="window">
+  <div class="desktop-bg"></div>
+
+  <div class="window" role="application" aria-label="Kanye Quote Game">
     <div class="title-bar">
       <div class="title-bar-text">Kanye Quote Game.exe</div>
-      
+      <div class="title-bar-controls">
+        <button aria-label="Minimize">_</button>
+        <button aria-label="Maximize">□</button>
+        <button aria-label="Close">✕</button>
+      </div>
     </div>
 
-    <!-- Made menu items clickable -->
-    <div class="menu-bar">
-      <span class="menu-item" onclick="showPage('file')">Music</span>
-      <span class="menu-item" onclick="showPage('edit')">Edit</span>
-      <span class="menu-item" onclick="showPage('view')">Pictures</span>
-      <span class="menu-item" onclick="showPage('help')">About Kanye</span>
-    </div>
+    <!-- Made menu bar keyboard accessible with role and tabindex -->
+    <nav class="menu-bar" role="menubar" aria-label="Main menu">
+      <button class="menu-item" role="menuitem" tabindex="0" onclick="showPage('file')" onkeypress="handleMenuKeypress(event, 'file')">Music</button>
+      <button class="menu-item" role="menuitem" tabindex="0" onclick="showPage('edit')" onkeypress="handleMenuKeypress(event, 'edit')">Edit</button>
+      <button class="menu-item" role="menuitem" tabindex="0" onclick="showPage('view')" onkeypress="handleMenuKeypress(event, 'view')">Pictures</button>
+      <button class="menu-item" role="menuitem" tabindex="0" onclick="showPage('help')" onkeypress="handleMenuKeypress(event, 'help')">About Kanye</button>
+    </nav>
 
     <div class="window-body">
       <!-- Main game page -->
-      <div id="gamePage" class="page-content">
+      <div id="gamePage" class="page-content" role="main" aria-label="Game page">
         <div class="content">
           <h1 class="retro-title">KANYE WEST QUOTE GAME</h1>
           <p class="subtitle">Is this a real Kanye quote?</p>
 
+          <!-- Added aria-live region for quote -->
           <div class="quote-box">
-            <div class="quote-display">
-              <p id="quoteText">Press START to begin the game...</p>
+            <div class="quote-display" role="region" aria-label="Quote display">
+              <p id="quoteText" aria-live="polite" aria-atomic="true">Press START to begin the game...</p>
             </div>
           </div>
 
-          <!-- Start button changes to next quote during game -->
+          <!-- Added aria-label to start button -->
           <div class="game-controls">
-            <button id="startBtn" class="btn-retro btn-primary">START GAME</button>
+            <button id="startBtn" class="btn-retro btn-primary" aria-label="Start game">START GAME</button>
           </div>
 
-          <div id="answerButtons" class="answer-buttons" style="display: none;">
-            <button id="trueBtn" class="btn-retro btn-true">✓ REAL</button>
-            <button id="falseBtn" class="btn-retro btn-false">✗ FAKE</button>
+          <!-- Added role and aria-labels to answer buttons -->
+          <div id="answerButtons" class="answer-buttons" style="display: none;" role="group" aria-label="Answer options">
+            <button id="trueBtn" class="btn-retro btn-true" aria-label="This is a real Kanye quote">✓ REAL</button>
+            <button id="falseBtn" class="btn-retro btn-false" aria-label="This is a fake quote">✗ FAKE</button>
           </div>
 
-          <div class="status-bar">
+          <!-- Made status bar more accessible -->
+          <div class="status-bar" role="status" aria-label="Game statistics">
             <div class="status-field">
               <span class="label">Score:</span>
-              <span id="score" class="value">0</span>
+              <span id="score" class="value" aria-label="Current score">0</span>
             </div>
             <div class="status-field">
               <span class="label">Streak:</span>
-              <span id="streak" class="value">0</span>
+              <span id="streak" class="value" aria-label="Current streak">0</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- File page - Kanye West songs -->
-      <div id="filePage" class="page-content" style="display: none;">
+      <div id="filePage" class="page-content" style="display: none;" role="main" aria-label="Music page">
         <div class="content">
           <h2 class="page-title">🎵 Kanye West Music</h2>
-          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          <button class="btn-retro btn-back" onclick="showPage('game')" aria-label="Back to game">← Back to Game</button>
           
-          <div class="list-box">
-            <div class="list-item" onclick="playTrack('stronger')">♫ Stronger (2007)</div>
-            <div class="list-item" onclick="playTrack('gold-digger')">♫ Gold Digger (2005)</div>
-            <div class="list-item" onclick="playTrack('heartless')">♫ Heartless (2008)</div>
-            <div class="list-item" onclick="playTrack('power')">♫ Power (2010)</div>
-            <div class="list-item" onclick="playTrack('runaway')">♫ Runaway (2010)</div>
-            <div class="list-item" onclick="playTrack('all-of-the-lights')">♫ All of the Lights (2010)</div>
-            <div class="list-item" onclick="playTrack('paris')">♫ Ni**as in Paris (2011)</div>
-            <div class="list-item" onclick="playTrack('black-skinhead')">♫ Black Skinhead (2013)</div>
-            <div class="list-item" onclick="playTrack('bound-2')">♫ Bound 2 (2013)</div>
-            <div class="list-item" onclick="playTrack('famous')">♫ Famous (2016)</div>
-            <div class="list-item" onclick="playTrack('ultralight')">♫ Ultralight Beam (2016)</div>
-            <div class="list-item" onclick="playTrack('ghost-town')">♫ Ghost Town (2018)</div>
+          <!-- Made song list more accessible -->
+          <div class="list-box" role="list" aria-label="Kanye West songs">
+            <button class="list-item" role="listitem" onclick="playTrack('stronger')" aria-label="Play Stronger from 2007">♫ Stronger (2007)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('gold-digger')" aria-label="Play Gold Digger from 2005">♫ Gold Digger (2005)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('heartless')" aria-label="Play Heartless from 2008">♫ Heartless (2008)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('power')" aria-label="Play Power from 2010">♫ Power (2010)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('runaway')" aria-label="Play Runaway from 2010">♫ Runaway (2010)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('all-of-the-lights')" aria-label="Play All of the Lights from 2010">♫ All of the Lights (2010)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('paris')" aria-label="Play Ni**as in Paris from 2011">♫ Ni**as in Paris (2011)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('black-skinhead')" aria-label="Play Black Skinhead from 2013">♫ Black Skinhead (2013)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('bound-2')" aria-label="Play Bound 2 from 2013">♫ Bound 2 (2013)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('famous')" aria-label="Play Famous from 2016">♫ Famous (2016)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('ultralight')" aria-label="Play Ultralight Beam from 2016">♫ Ultralight Beam (2016)</button>
+            <button class="list-item" role="listitem" onclick="playTrack('ghost-town')" aria-label="Play Ghost Town from 2018">♫ Ghost Town (2018)</button>
           </div>
           
-          <!-- Added audio player -->
-          <div class="audio-player" id="audioPlayer" style="display: none;">
+          <div class="audio-player" id="audioPlayer" style="display: none;" role="region" aria-label="Audio player">
             <p id="nowPlaying">Now Playing: <span id="trackName"></span></p>
-            <audio id="audioElement" controls style="width: 100%; margin-top: 10px;"></audio>
+            <audio id="audioElement" controls style="width: 100%; margin-top: 10px;" aria-label="Music player"></audio>
           </div>
         </div>
       </div>
 
       <!-- Edit page - placeholder -->
-      <div id="editPage" class="page-content" style="display: none;">
+      <div id="editPage" class="page-content" style="display: none;" role="main" aria-label="Edit settings page">
         <div class="content">
           <h2 class="page-title">✏️ Edit Settings</h2>
-          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          <button class="btn-retro btn-back" onclick="showPage('game')" aria-label="Back to game">← Back to Game</button>
           <div class="info-box">
             <p>Game settings coming soon...</p>
           </div>
@@ -108,33 +116,32 @@
       </div>
 
       <!-- View page - Random Kanye pictures -->
-      <div id="viewPage" class="page-content" style="display: none;">
+      <div id="viewPage" class="page-content" style="display: none;" role="main" aria-label="Pictures page">
         <div class="content">
           <h2 class="page-title">🖼️ Kanye Pictures</h2>
-          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          <button class="btn-retro btn-back" onclick="showPage('game')" aria-label="Back to game">← Back to Game</button>
           
-          <!-- Added file input for uploading images -->
           <div class="upload-section">
             <label class="btn-retro btn-primary" for="imageUpload">
               📁 Upload Kanye Pictures
             </label>
-            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(event)">
+            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(event)" aria-label="Upload Kanye pictures">
           </div>
           
-          <div class="gallery-grid" id="galleryGrid">
-            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
-            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
-            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
-            <img src="/placeholder.svg?height=200&width=200" alt="Kanye" class="gallery-img">
+          <div class="gallery-grid" id="galleryGrid" role="list" aria-label="Kanye West pictures gallery">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye West portrait 1" class="gallery-img">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye West portrait 2" class="gallery-img">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye West portrait 3" class="gallery-img">
+            <img src="/placeholder.svg?height=200&width=200" alt="Kanye West portrait 4" class="gallery-img">
           </div>
         </div>
       </div>
 
       <!-- Help page - About Kanye West -->
-      <div id="helpPage" class="page-content" style="display: none;">
+      <div id="helpPage" class="page-content" style="display: none;" role="main" aria-label="About Kanye West page">
         <div class="content">
           <h2 class="page-title">ℹ️ About Kanye West</h2>
-          <button class="btn-retro btn-back" onclick="showPage('game')">← Back to Game</button>
+          <button class="btn-retro btn-back" onclick="showPage('game')" aria-label="Back to game">← Back to Game</button>
           
           <div class="info-box">
             <h3>Kanye Omari West</h3>
@@ -158,11 +165,11 @@
     </div>
   </div>
 
-  <!-- Milestone overlay unchanged -->
-  <div id="milestoneOverlay" class="milestone-overlay">
+  <!-- Made milestone overlay accessible -->
+  <div id="milestoneOverlay" class="milestone-overlay" role="dialog" aria-modal="true" aria-label="Celebration">
     <div class="milestone-content">
-      <h2 id="milestoneText"></h2>
-      <img id="milestoneGif" src="/placeholder.svg" alt="Celebration" />
+      <h2 id="milestoneText" aria-live="assertive"></h2>
+      <img id="milestoneGif" src="/placeholder.svg" alt="Kanye celebration animation" />
     </div>
   </div>
 
